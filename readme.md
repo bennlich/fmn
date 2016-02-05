@@ -1,0 +1,6 @@
+Setup
+-----
+
+```
+bower install
+```
