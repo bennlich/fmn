@@ -17,6 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "riot": "^2.3.15"
+    "riot": "^2.3.15",
+    "firebase": "^2.4.0"
   }
 }
