@@ -1,0 +1,21 @@
+{
+  "name": "FMN",
+  "authors": [
+    "Benny Lichtner <bennlich@gmail.com>"
+  ],
+  "description": "family music night homigosh",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "riot": "^2.3.15"
+  }
+}
