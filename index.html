@@ -3,10 +3,20 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF8">
   </head>
   <body>
-    <bob-view></bob-view>
+    <main-view></main-view>
   </body>
   <script src="bower_components/firebase/firebase.js"></script>
   <script src="bower_components/riot/riot+compiler.min.js"></script>
   <script src="src/main-view.js" type="riot/tag"></script>
-  <script>riot.mount('*')</script>
+  <script src="src/bob-view.js" type="riot/tag"></script>
+  <script>
+    // Router events
+    var room = riot.observable()
+
+    riot.route('/*', function(roomName) {
+      room.trigger('change', roomName);
+    });
+    riot.route.start(true);
+  </script>
+  <script>riot.mount('main-view', { room: room })</script>
 </html>
