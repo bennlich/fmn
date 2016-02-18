@@ -11,7 +11,7 @@
       </div>
 
       <div class="submit-track">
-        <input name="urlInput" type="text" placeholder="Enter URL" onkeypress="{ handleKeyPress }" />
+        <input name="urlInput" type="text" placeholder="Enter URL" onkeypress="{ catchEnterKey }" />
         <div class="submit-track-button" onclick="{ submitTrack }">Submit</div>
       </div>
     </div>
@@ -21,7 +21,7 @@
     this.roomRef = null;
     this.tracks = [];
 
-    handleKeyPress(e) {
+    catchEnterKey(e) {
       var enter_key = 13;
       if (e.which === enter_key) {
         this.submitTrack();
