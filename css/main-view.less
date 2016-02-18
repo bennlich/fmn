@@ -1,0 +1,57 @@
+html {
+  font-family: sans-serif;
+}
+
+.button {
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+
+.main-container {
+  display: flex;
+  width: 700px;
+  margin: 0px auto;
+  margin-top: 200px;
+  
+  .participants {
+    flex: 0 0 200px;
+  }
+
+  .track-list-and-submit {
+    width: 100%;
+    margin-left: 10px;
+
+    .track-list {
+      font-family: monospace;
+      background: #444;
+      color: white;
+
+      .track {
+        border-bottom: 1px solid;
+        padding: 10px;
+        .button;
+      }
+    }
+
+    .submit-track {
+      display: flex;
+
+      .submit-track-button {
+        .button;
+        flex: 0 0 100px;
+        text-align: center;
+        padding: 10px;
+        background: #B5D2EA;
+      }
+
+      input {
+        font: inherit;
+        width: 100%;
+        padding-left: 10px;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
