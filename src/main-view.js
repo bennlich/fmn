@@ -1,7 +1,11 @@
 <main-view>
 
   <div class="main-container">
-    <div class="participants"></div>
+    <div class="participants">
+      <div class="participant" each={ person in participants }>
+        { person.name }
+      </div>
+    </div>
     
     <div class="track-list-and-submit">
       <div class="track-list">
@@ -20,6 +24,13 @@
   <script>
     this.roomRef = null;
     this.tracks = [];
+    this.participants = [
+      { name: "caro" },
+      { name: "benny" },
+      { name: "ben" },
+      { name: "tim" },
+      { name: "j_blongza_XxX" }
+    ];
 
     catchEnterKey(e) {
       var enter_key = 13;
