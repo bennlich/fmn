@@ -30,6 +30,8 @@
     }.bind(this));
   }
 
-  opts.room.on("change", this.joinRoom);
+  // listen for room change events fired from
+  // the parent element
+  opts.roomEvents.on("change", this.joinRoom);
 
 </main-view>

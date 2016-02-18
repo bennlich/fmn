@@ -11,12 +11,12 @@
   <script src="src/bob-view.js" type="riot/tag"></script>
   <script>
     // Router events
-    var room = riot.observable()
+    var roomEvents = riot.observable()
 
     riot.route('/*', function(roomName) {
-      room.trigger('change', roomName);
+      roomEvents.trigger('change', roomName);
     });
     riot.route.start(true);
   </script>
-  <script>riot.mount('main-view', { room: room })</script>
+  <script>riot.mount('main-view', { roomEvents: roomEvents })</script>
 </html>
