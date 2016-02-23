@@ -18,6 +18,7 @@
   ],
   "dependencies": {
     "riot": "^2.3.15",
-    "firebase": "^2.4.0"
+    "firebase": "^2.4.0",
+    "less": "^2.6.0"
   }
 }
