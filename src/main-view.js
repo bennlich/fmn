@@ -83,7 +83,7 @@
         this.roomRef.off();
       }
 
-      this.roomRef = dbRef.child(roomName);
+      this.roomRef = dbRef.child("rooms/"+roomName);
 
       // Update our model when the datastore changes
       console.log("Listening to room", this.roomRef.toString());
