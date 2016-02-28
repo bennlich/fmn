@@ -5,7 +5,7 @@
 
         <input type="text" name="login" value="" placeholder="Username">
         <input type="password" name="password" value="" placeholder="Password">
-        <input type="submit" value="Login">
+        <input type="submit" value="SignUp">
         </form>
     </div>
 </div>
@@ -35,9 +35,17 @@
 
     <script>
 
-FMN = function() {
-   this.firebase = new Firebase("https://bennlich.firebaseio.com/fmn");
-}
+    FMN = function() {
+       this.firebase = new Firebase("https://bennlich.firebaseio.com/fmn");
+    };
+
+    $('.login input[type="submit"]').click(e => {
+        e.preventDefault();
+        debugger;
+        FMN.firebase.createUser();
+    });
+
+
 
     this.roomRef = null;
     this.tracks = [];
