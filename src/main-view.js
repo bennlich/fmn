@@ -1,6 +1,9 @@
 <main-view>
 
-  <div class="main-container">
+    <div class="main-container">
+    <div class="login">
+    
+</div>
     <div class="participants">
       <div class="participant" each={ person in participants }>
         { person.name }
@@ -21,7 +24,12 @@
     </div>
   </div>
 
-  <script>
+    <script>
+
+FMN = function() {
+   this.firebase = new Firebase("https://bennlich.firebaseio.com/fmn");
+}
+
     this.roomRef = null;
     this.tracks = [];
     this.participants = [
