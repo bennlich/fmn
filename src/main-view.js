@@ -22,7 +22,11 @@
     <div class="track-list-and-submit">
       <div class="track-list">
         <div class="track" each={ key, track in tracks } onclick="{ setVideoUrl }">
-          { track.url }
+          <img class="track-thumbnail" src="{ track.thumbnail.url }">
+          <div class="track-title">
+            <div if="{ track.title }">{ track.title }</div>
+            <div if="{ !track.title }">{ track.url }</div>
+          </div>
         </div>
       </div>
 
