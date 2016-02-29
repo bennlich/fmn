@@ -13,7 +13,7 @@
   <script src="src/bob-view.js" type="riot/tag"></script>
   <script>
     // Router events
-    var roomEvents = riot.observable()
+    var roomEvents = riot.observable();
 
     riot.route('/*', function(roomName) {
       roomEvents.trigger('change', roomName);
