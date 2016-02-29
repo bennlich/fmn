@@ -55,11 +55,11 @@
     }
 
     // our datastore
-    this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
+    var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
 
     addUser(e) {
         e.preventDefault();
-        this.dbRef.createUser({
+        dbRef.createUser({
             email: this.email.value,
             password: this.password.value
         }, (err, uid) => {
