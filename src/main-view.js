@@ -41,6 +41,9 @@
     // for debug
     window.mainView = this;
 
+    // make the dependency on other modules explicit at top of script
+    var youtubeHelper = window.youtubeHelper;
+
     // model variables
     this.roomRef = null;
     this.tracks = [];
@@ -55,25 +58,36 @@
     }
 
     submitTrack() {
-      this.roomRef.child("tracks").push({
-        url: this.urlInput.value
-      });
-      this.urlInput.value = "";
-    }
+      var url = this.urlInput.value;
 
-    setVideoUrl(event) {
-      var track = event.item.track;
       // look for the video id in the pasted url
       var videoIdRegex = /v=([^&]*)&?/;
-      var parsedUrl = videoIdRegex.exec(track.url);
+      var parsedUrl = videoIdRegex.exec(url);
       
       if (parsedUrl == null || parsedUrl.length <= 1) {
-        console.warn("Could not parse video URL!", track.url);
+        console.warn("Could not parse video URL!", url);
         return;
       }
 
       var videoId = parsedUrl[1];
-      this.videoSrc = "http://www.youtube.com/embed/"+videoId;
+
+      var trackRef = this.roomRef.child("tracks").push({
+        url: url,
+        videoId: videoId
+      });
+      this.urlInput.value = "";
+
+      youtubeHelper.getVideoDetailsForId(videoId, function(res) {
+        trackRef.update({
+          title: res.title,
+          thumbnailUrl: res.thumbnails.default
+        });
+      });
+    }
+
+    setVideoUrl(event) {
+      var track = event.item.track;
+      this.videoSrc = "http://www.youtube.com/embed/"+track.videoId;
     }
 
     window.onYouTubeIframeAPIReady = function() {
