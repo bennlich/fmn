@@ -38,10 +38,13 @@
   </div>
 
   <script>
+    // for debug
     window.mainView = this;
 
+    // model variables
     this.roomRef = null;
     this.tracks = [];
+    this.participants = [];
 
     catchEnterKey(e) {
       var enter_key = 13;
