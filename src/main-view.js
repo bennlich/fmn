@@ -22,6 +22,7 @@
   </div>
 
   <script>
+    window.mainView = this;
     this.roomRef = null;
     this.tracks = [];
     this.participants = [
