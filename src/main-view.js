@@ -1,18 +1,16 @@
 <main-view>
-<div class="header">
+  <div class="header">
     <div class="login">
-        <form id="fmn-login">
+      <form id="fmn-login">
 
         <input type="text" name="login" value="" placeholder="Username">
         <input type="password" name="password" value="" placeholder="Password">
         <input type="submit" value="Login">
-        </form>
+      </form>
     </div>
-</div>
+  </div>
 
-    <div class="main-container">
-
-
+  <div class="main-container">
     <div class="participants">
       <div class="participant" each={ person in participants }>
         { person.name }
