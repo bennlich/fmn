@@ -4,9 +4,10 @@
     <div class="login">
       <form id="fmn-login">
 
-        <input type="text" name="login" value="" placeholder="Username">
+        <input type="text" name="email" value="" placeholder="email@email.com">
+        <input type="text" name="username" value="" placeholder="Username">
         <input type="password" name="password" value="" placeholder="Password">
-        <button onclick="">Sign Up</button>
+        <input type="submit" value="Sign Up" onclick="{ addUser }">
       </form>
     </div>
   </div>
@@ -63,13 +64,16 @@
     // our datastore
     this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
 
-    const addUser = () => {
-        "use strict";
-        debugger;
+    addUser(e) {
+        e.preventDefault();
         this.dbRef.createUser({
-
+            email: this.email.value,
+            password: this.password.value
+        }, (err, uid) => {
+            console.log('error', err);
+            console.log(uid);
+            // add UID to users field
         });
-
     };
 
     joinRoom(roomName) {
