@@ -21,7 +21,7 @@
     
     <div class="track-list-and-submit">
       <div class="track-list">
-        <div class="track" each={ key, track in tracks }>
+        <div class="track" each={ key, track in tracks } onclick="{ setVideoUrl }">
           { track.url }
         </div>
       </div>
@@ -29,6 +29,10 @@
       <div class="submit-track">
         <input name="urlInput" type="text" placeholder="Enter URL" onkeypress="{ catchEnterKey }" />
         <div class="submit-track-button" onclick="{ submitTrack }">Submit</div>
+      </div>
+
+      <div class="video-container">
+        <iframe id="video-player" src="{ videoSrc }" type="text/html" width="640" height="390" frameborder="0"></iframe>
       </div>
     </div>
   </div>
@@ -53,6 +57,25 @@
       });
       this.urlInput.value = "";
     }
+
+    setVideoUrl(event) {
+      var track = event.item.track;
+      // look for the video id in the pasted url
+      var videoIdRegex = /v=([^&]*)&?/;
+      var parsedUrl = videoIdRegex.exec(track.url);
+      
+      if (parsedUrl == null || parsedUrl.length <= 1) {
+        console.warn("Could not parse video URL!", track.url);
+        return;
+      }
+
+      var videoId = parsedUrl[1];
+      this.videoSrc = "http://www.youtube.com/embed/"+videoId;
+    }
+
+    window.onYouTubeIframeAPIReady = function() {
+      window.player = new YT.Player('video-player');
+    };
 
     // our datastore
     var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
