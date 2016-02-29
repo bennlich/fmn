@@ -14,8 +14,8 @@
 
   <div class="main-container">
     <div class="participants">
-      <div class="participant" each={ person in participants }>
-        { person.name }
+      <div class="participant" each={ id, name in participants }>
+        { name }
       </div>
     </div>
     
@@ -38,13 +38,6 @@
 
     this.roomRef = null;
     this.tracks = [];
-    this.participants = [
-      { name: "caro" },
-      { name: "benny" },
-      { name: "ben" },
-      { name: "tim" },
-      { name: "j_blongza_XxX" }
-    ];
 
     catchEnterKey(e) {
       var enter_key = 13;
@@ -85,11 +78,23 @@
       }
 
       this.roomRef = dbRef.child("rooms/"+roomName);
+      this.participantsRef = this.roomRef.child("participants");
+
+      // Test participants in Firebase
+      this.participantsRef.set({
+           "player_id1": "caro",
+           "player_id2": "benny",
+           "player_id3": "ben",
+           "player_id4": "tim" ,
+      });
+
+
 
       // Update our model when the datastore changes
       console.log("Listening to room", this.roomRef.toString());
       this.roomRef.on("value", function(snap) {
         this.tracks = snap.child("tracks").val();
+        this.participants = snap.child("participants").val();
         // Force riot to re-render when the datastore changes.
         // Turns out this is only actually needed for the initial
         // render--subsequent renders are triggered automatically
