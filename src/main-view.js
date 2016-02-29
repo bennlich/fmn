@@ -80,7 +80,7 @@
       youtubeHelper.getVideoDetailsForId(videoId, function(res) {
         trackRef.update({
           title: res.title,
-          thumbnailUrl: res.thumbnails.default
+          thumbnail: res.thumbnails.default
         });
       });
     }
