@@ -6,7 +6,7 @@
 
         <input type="text" name="login" value="" placeholder="Username">
         <input type="password" name="password" value="" placeholder="Password">
-        <button>Sign Up</button>
+        <button onclick="">Sign Up</button>
       </form>
     </div>
   </div>
@@ -32,20 +32,8 @@
     </div>
   </div>
 
-<<<<<<< HEAD
-    <script>
-
-
-    //    e.preventDefault();
-    //    debugger;
-    //    FMN.firebase.createUser();
-    //});
-
-
-=======
   <script>
     window.mainView = this;
->>>>>>> c677618811b8639a88d3e3e174af33b6f81e8593
 
     this.roomRef = null;
     this.tracks = [];
@@ -73,7 +61,6 @@
     }
 
     // our datastore
-<<<<<<< HEAD
     this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
 
     const addUser = () => {
@@ -84,9 +71,6 @@
         });
 
     };
-=======
-    var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
->>>>>>> c677618811b8639a88d3e3e174af33b6f81e8593
 
     joinRoom(roomName) {
       console.log("Joining room", roomName);
