@@ -1,18 +1,17 @@
 <main-view>
-    <div class="header">
-        <div class="login">
-            <form id="fmn-login">
 
-            <input type="text" name="login" value="" placeholder="Username">
-            <input type="password" name="password" value="" placeholder="Password">
-            <button type="submit" onclick="addUser()">SignUP</button>
-            </form>
-        </div>
+  <div class="header">
+    <div class="login">
+      <form id="fmn-login">
+
+        <input type="text" name="login" value="" placeholder="Username">
+        <input type="password" name="password" value="" placeholder="Password">
+        <button>Sign Up</button>
+      </form>
     </div>
+  </div>
 
-    <div class="main-container">
-
-
+  <div class="main-container">
     <div class="participants">
       <div class="participant" each={ person in participants }>
         { person.name }
@@ -33,6 +32,7 @@
     </div>
   </div>
 
+<<<<<<< HEAD
     <script>
 
 
@@ -42,6 +42,10 @@
     //});
 
 
+=======
+  <script>
+    window.mainView = this;
+>>>>>>> c677618811b8639a88d3e3e174af33b6f81e8593
 
     this.roomRef = null;
     this.tracks = [];
@@ -69,6 +73,7 @@
     }
 
     // our datastore
+<<<<<<< HEAD
     this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
 
     const addUser = () => {
@@ -79,6 +84,9 @@
         });
 
     };
+=======
+    var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
+>>>>>>> c677618811b8639a88d3e3e174af33b6f81e8593
 
     joinRoom(roomName) {
       console.log("Joining room", roomName);
