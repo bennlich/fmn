@@ -1,6 +1,18 @@
 <main-view>
+<div class="header">
+    <div class="login">
+        <form id="fmn-login">
 
-  <div class="main-container">
+        <input type="text" name="login" value="" placeholder="Username">
+        <input type="password" name="password" value="" placeholder="Password">
+        <input type="submit" value="Login">
+        </form>
+    </div>
+</div>
+
+    <div class="main-container">
+
+
     <div class="participants">
       <div class="participant" each={ person in participants }>
         { person.name }
@@ -23,6 +35,7 @@
 
   <script>
     window.mainView = this;
+
     this.roomRef = null;
     this.tracks = [];
     this.participants = [
@@ -49,7 +62,7 @@
     }
 
     // our datastore
-    var dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
+    var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
 
     joinRoom(roomName) {
       console.log("Joining room", roomName);
@@ -59,7 +72,7 @@
         this.roomRef.off();
       }
 
-      this.roomRef = dbRef.child(roomName);
+      this.roomRef = dbRef.child("rooms/"+roomName);
 
       // Update our model when the datastore changes
       console.log("Listening to room", this.roomRef.toString());
