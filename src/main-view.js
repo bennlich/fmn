@@ -1,14 +1,14 @@
 <main-view>
-<div class="header">
-    <div class="login">
-        <form id="fmn-login">
+    <div class="header">
+        <div class="login">
+            <form id="fmn-login">
 
-        <input type="text" name="login" value="" placeholder="Username">
-        <input type="password" name="password" value="" placeholder="Password">
-        <input type="submit" value="SignUp">
-        </form>
+            <input type="text" name="login" value="" placeholder="Username">
+            <input type="password" name="password" value="" placeholder="Password">
+            <button type="submit" onclick="addUser()">SignUP</button>
+            </form>
+        </div>
     </div>
-</div>
 
     <div class="main-container">
 
@@ -35,15 +35,11 @@
 
     <script>
 
-    FMN = function() {
-       this.firebase = new Firebase("https://bennlich.firebaseio.com/fmn");
-    };
 
-    $('.login input[type="submit"]').click(e => {
-        e.preventDefault();
-        debugger;
-        FMN.firebase.createUser();
-    });
+    //    e.preventDefault();
+    //    debugger;
+    //    FMN.firebase.createUser();
+    //});
 
 
 
@@ -73,7 +69,16 @@
     }
 
     // our datastore
-    var dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
+    this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
+
+    const addUser = () => {
+        "use strict";
+        debugger;
+        this.dbRef.createUser({
+
+        });
+
+    };
 
     joinRoom(roomName) {
       console.log("Joining room", roomName);
