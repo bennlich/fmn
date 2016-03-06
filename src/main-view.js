@@ -129,8 +129,8 @@
       });
     };
 
-    joinRoom(roomName) {
-      console.log("Joining room", roomName);
+    loadRoom(roomName) {
+      console.log("Loading room", roomName);
 
       // remove old listeners
       if (this.roomRef) {
@@ -166,7 +166,7 @@
 
     // listen for room change events fired from
     // the parent element
-    opts.roomEvents.on("change", this.joinRoom);
+    opts.roomEvents.on("change", this.loadRoom);
   </script>
 
 </main-view>
