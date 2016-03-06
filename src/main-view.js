@@ -53,6 +53,10 @@
     this.tracks = [];
     this.participants = [];
 
+    //  ----------
+    //  track list
+    //  ----------
+
     submitTrackOnEnter(e) {
       var enter_key = 13;
       if (e.which === enter_key) {
@@ -102,6 +106,10 @@
     var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
     var usersRef = dbRef.child("users");
 
+    //  ------
+    //  log in
+    //  ------
+
     addUser(e) {
       e.preventDefault();
       dbRef.createUser({
@@ -128,6 +136,10 @@
 
       });
     };
+
+    //  ---------------
+    //  room management
+    //  ---------------
 
     loadRoom(roomName) {
       console.log("Loading room", roomName);
