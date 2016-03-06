@@ -140,8 +140,6 @@
       this.roomRef = dbRef.child("rooms/"+roomName);
       this.participantsRef = this.roomRef.child("participants");
 
-
-
       // Test participants in Firebase
       this.participantsRef.set({
            "player_id1": "caro",
@@ -149,7 +147,6 @@
            "player_id3": "ben",
            "player_id4": "tim" ,
       });
-
 
       // Update our model when the datastore changes
       console.log("Listening to room", this.roomRef.toString());
