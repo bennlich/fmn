@@ -31,7 +31,7 @@
       </div>
 
       <div class="submit-track">
-        <input name="urlInput" type="text" placeholder="Enter URL" onkeypress="{ catchEnterKey }" />
+        <input name="urlInput" type="text" placeholder="Enter URL" onkeypress="{ submitTrackOnEnter }" />
         <div class="submit-track-button" onclick="{ submitTrack }">Submit</div>
       </div>
 
@@ -53,7 +53,7 @@
     this.tracks = [];
     this.participants = [];
 
-    catchEnterKey(e) {
+    submitTrackOnEnter(e) {
       var enter_key = 13;
       if (e.which === enter_key) {
         this.submitTrack();
