@@ -53,6 +53,10 @@
     this.tracks = [];
     this.participants = [];
 
+    // our datastore
+    var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
+    var usersRef = dbRef.child("users");
+
     //  ----------
     //  track list
     //  ----------
@@ -101,10 +105,6 @@
     window.onYouTubeIframeAPIReady = function() {
       window.player = new YT.Player('video-player');
     };
-
-    // our datastore
-    var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
-    var usersRef = dbRef.child("users");
 
     //  ------
     //  log in
