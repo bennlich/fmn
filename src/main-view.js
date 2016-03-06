@@ -97,6 +97,10 @@
       });
     }
 
+    //  ------------
+    //  video player
+    //  ------------
+
     setVideoUrl(event) {
       var track = event.item.track;
       this.videoSrc = "http://www.youtube.com/embed/"+track.videoId;
