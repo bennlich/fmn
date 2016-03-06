@@ -2,13 +2,20 @@
 
   <div class="header">
     <div class="login">
-      <form id="fmn-login">
-
+      <div class="login-button" if="{ !visibleForm }" onclick="{ showSignup }">Create account</div>
+      <div class="login-button" if="{ !visibleForm }" onclick="{ showLogin }">Log in</div>
+      <form id="fmn-login" if="{ visibleForm == 'signup' }">
         <input type="text" name="email" value="" placeholder="email@email.com">
         <input type="text" name="username" value="" placeholder="Username">
         <input type="password" name="password" value="" placeholder="Password">
-        <input type="submit" value="Sign Up" onclick="{ addUser }">
+        <input type="submit" value="Create Account" onclick="{ addUser }">
       </form>
+      <form id="fmn-login" if="{ visibleForm == 'login' }">
+        <input type="text" name="email" value="" placeholder="email@email.com">
+        <input type="password" name="password" value="" placeholder="Password">
+        <input type="submit" value="Log In" onclick="{ authenticateUser }">
+      </form>
+      <div class="login-button" if="{ visibleForm }" onclick="{ hideLogin }">Back</div>
     </div>
   </div>
 
@@ -52,6 +59,7 @@
     this.roomRef = null;
     this.tracks = [];
     this.participants = [];
+    this.loginVisible = false;
 
     // our datastore
     var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
@@ -113,6 +121,18 @@
     //  ------
     //  log in
     //  ------
+
+    showLogin() {
+      this.visibleForm = "login";
+    }
+
+    showSignup() {
+      this.visibleForm = "signup";
+    }
+
+    hideLogin() {
+      this.visibleForm = null;
+    }
 
     addUser(e) {
       e.preventDefault();
