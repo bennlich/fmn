@@ -100,17 +100,33 @@
 
     // our datastore
     var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
+    var usersRef = dbRef.child("users");
 
     addUser(e) {
-        e.preventDefault();
-        dbRef.createUser({
-            email: this.email.value,
-            password: this.password.value
-        }, (err, uid) => {
-            console.log('error', err);
-            console.log(uid);
-            // add UID to users field
-        });
+      e.preventDefault();
+      dbRef.createUser({
+        email: this.email.value,
+        password: this.password.value
+      }, (error, userData) => {
+        if (error) {
+          switch (error.code) {
+            case "EMAIL_TAKEN":
+              console.log("The new user account cannot be created because the email is already in use.");
+              break;
+            case "INVALID_EMAIL":
+              console.log("The specified email is not a valid email.");
+              break;
+            default:
+              console.log("Error creating user:", error);
+          }
+        } else {
+          console.log("Successfully created user account with uid:", userData.uid);
+          var username = this.username.value;
+          // Adding user to users list in Firebase
+          usersRef.child(userData.uid).set({ "username": username });
+        }
+
+      });
     };
 
     joinRoom(roomName) {
@@ -120,9 +136,11 @@
       if (this.roomRef) {
         this.roomRef.off();
       }
-
+      
       this.roomRef = dbRef.child("rooms/"+roomName);
       this.participantsRef = this.roomRef.child("participants");
+
+
 
       // Test participants in Firebase
       this.participantsRef.set({
@@ -131,7 +149,6 @@
            "player_id3": "ben",
            "player_id4": "tim" ,
       });
-
 
 
       // Update our model when the datastore changes
