@@ -1,20 +1,25 @@
 <main-view>
 
   <div class="header">
+    <div class="error-message" if="{error}">{error}</div>
+
     <div class="login">
 
-      <div if="{activeUser}"><button>Logout</button></div>
-      <div if="{!activeUser}">
-        <button>Sign Up</button>
-        <button>Login</button>
-      </div>
+      <div class="login-button" if="{ !visibleForm }" onclick="{ showSignup }">Create account</div>
+      <div class="login-button" if="{ !visibleForm }" onclick="{ showLogin }">Log in</div>
 
-      <form id="fmn-login">
+      <form id="fmn-login" if="{ visibleForm == 'signup' }">
         <input type="text" name="email" value="" placeholder="email@email.com">
         <input type="text" name="username" value="" placeholder="Username">
         <input type="password" name="password" value="" placeholder="Password">
-        <input type="submit" value="Sign Up" onclick="{ addUser }">
+        <input type="submit" value="Create Account" onclick="{ addUser }">
       </form>
+      <form id="fmn-login" if="{ visibleForm == 'login' }">
+        <input type="text" name="email" value="" placeholder="email@email.com">
+        <input type="password" name="password" value="" placeholder="Password">
+        <input type="submit" value="Log In" onclick="{ authenticateUser }">
+      </form>
+      <div class="login-button" if="{ visibleForm }" onclick="{ hideLogin }">Back</div>
     </div>
   </div>
 
@@ -58,6 +63,7 @@
     this.roomRef = null;
     this.tracks = [];
     this.participants = [];
+    this.loginVisible = false;
 
     // our datastore
     var dbRef = this.dbRef = new Firebase("https://bennlich.firebaseio.com/fmn");
@@ -103,6 +109,10 @@
       });
     }
 
+    //  ------------
+    //  video player
+    //  ------------
+
     setVideoUrl(event) {
       var track = event.item.track;
       this.videoSrc = "http://www.youtube.com/embed/"+track.videoId;
@@ -116,11 +126,23 @@
     //  log in
     //  ------
 
+    showLogin() {
+      this.visibleForm = "login";
+    }
+
+    showSignup() {
+      this.visibleForm = "signup";
+    }
+
+    hideLogin() {
+      this.visibleForm = null;
+    }
+
     addUser(e) {
       e.preventDefault();
       dbRef.createUser({
-        email: this.email.value,
-        password: this.password.value
+        email: this.email[0].value,
+        password: this.password[0].value
       }, (error, userData) => {
         if (error) {
           switch (error.code) {
@@ -139,21 +161,31 @@
           // Adding user to users list in Firebase
           usersRef.child(userData.uid).set({ "username": username });
 
-          this.userLogin(e);
+          this.authenticateUser(e);
         }
 
       });
     };
 
-    userLogin(e) {
-      debugger;
+    authenticateUser(e) {
+      e.preventDefault();
+      var email = this.visibleForm === "signup" ? this.email[0].value : this.email[1].value;
+      var password = this.visibleForm === "signup" ? this.password[0].value : this.password[1].value;
       // Or with an email/password combination
-      ref.authWithPassword({
-        email    : this.email.value,
-        password : this.password.value
-      }, (res) => {
-        "use strict";
-          this.activeUser = res;
+      dbRef.authWithPassword({
+        email    : email,
+        password : password
+      }, (err, res) => {
+        if (err) {
+          this.error = err;
+          console.log("Login Failed!", err);
+        }
+        if (res) {
+          console.log("Authenticated successfully with payload:", res);
+          this.error = null;
+          this.activeUser = res.uid;
+          this.hideLogin();
+        }
       });
     };
 
