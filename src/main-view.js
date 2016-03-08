@@ -2,8 +2,14 @@
 
   <div class="header">
     <div class="login">
-      <form id="fmn-login">
 
+      <div if="{activeUser}"><button>Logout</button></div>
+      <div if="{!activeUser}">
+        <button>Sign Up</button>
+        <button>Login</button>
+      </div>
+
+      <form id="fmn-login">
         <input type="text" name="email" value="" placeholder="email@email.com">
         <input type="text" name="username" value="" placeholder="Username">
         <input type="password" name="password" value="" placeholder="Password">
@@ -132,8 +138,22 @@
           var username = this.username.value;
           // Adding user to users list in Firebase
           usersRef.child(userData.uid).set({ "username": username });
+
+          this.userLogin(e);
         }
 
+      });
+    };
+
+    userLogin(e) {
+      debugger;
+      // Or with an email/password combination
+      ref.authWithPassword({
+        email    : this.email.value,
+        password : this.password.value
+      }, (res) => {
+        "use strict";
+          this.activeUser = res;
       });
     };
 
