@@ -31,6 +31,7 @@
       <div class="participant" each={ id, name in participants }>
         { name }
       </div>
+      <button if="{activeUser}" onclick="{ joinRoom }">Join Room!</button>
     </div>
     
     <div class="track-list-and-submit">
@@ -119,7 +120,7 @@
     setVideoUrl(event) {
       var track = event.item.track;
       this.videoSrc = "http://www.youtube.com/embed/"+track.videoId;
-    }
+    };
 
     window.onYouTubeIframeAPIReady = function() {
       window.player = new YT.Player('video-player');
@@ -186,7 +187,8 @@
         if (res) {
           console.log("Authenticated successfully with payload:", res);
           this.error = null;
-          this.activeUser = res.uid;
+
+          this.activeUser = res.uid;  // change to { id: res.uid, username:  getUsername } ?
           this.hideLogin();
         }
         this.update();
@@ -200,6 +202,14 @@
     //  ---------------
     //  room management
     //  ---------------
+
+    joinRoom(e) {
+      return; // TODO: get username of active user and add to participants
+      var participantsObj = {};
+      //participantsObj[this.activeUser] = 'username'
+      this.participantsRef = this.roomRef.child("participants");
+      this.participantsRef.set(participantsObj);
+    }
 
     loadRoom(roomName) {
       console.log("Loading room", roomName);
