@@ -186,6 +186,7 @@
           this.activeUser = res.uid;
           this.hideLogin();
         }
+        this.update();
       });
     };
 
