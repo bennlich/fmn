@@ -184,20 +184,26 @@
           this.error = err;
           console.log("Login Failed!", err);
         }
-        if (res) {
-          console.log("Authenticated successfully with payload:", res);
-          this.error = null;
-
-          this.activeUser = res.uid;  // change to { id: res.uid, username:  getUsername } ?
-          this.hideLogin();
-        }
-        this.update();
       });
     };
 
     logoutUser(e) {
-      this.activeUser = null;
+      dbRef.unauth();
     }
+
+    authCallback(res) {
+      if (res) {
+        console.log("Authenticated successfully with payload:", res);
+        this.error = null;
+        this.activeUser = res.uid;  // change to { id: res.uid, username:  getUsername } ?
+        this.hideLogin();
+      } else {
+        this.activeUser = null;
+      }
+      this.update();
+    }
+
+    dbRef.onAuth(this.authCallback);
 
     //  ---------------
     //  room management
