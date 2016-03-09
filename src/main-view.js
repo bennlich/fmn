@@ -4,9 +4,12 @@
     <div class="error-message" if="{error}">{error}</div>
 
     <div class="login">
+      <div if="{!activeUser }">
+        <div class="login-button" if="{ !visibleForm }" onclick="{ showSignup }">Create account</div>
+        <div class="login-button" if="{ !visibleForm }" onclick="{ showLogin }">Log in</div>
+      </div>
 
-      <div class="login-button" if="{ !visibleForm }" onclick="{ showSignup }">Create account</div>
-      <div class="login-button" if="{ !visibleForm }" onclick="{ showLogin }">Log in</div>
+      <div class="login-button" if="{ activeUser }" onclick="{ logoutUser }">Logout</div>
 
       <form id="fmn-login" if="{ visibleForm == 'signup' }">
         <input type="text" name="email" value="" placeholder="email@email.com">
@@ -189,6 +192,10 @@
         this.update();
       });
     };
+
+    logoutUser(e) {
+      this.activeUser = null;
+    }
 
     //  ---------------
     //  room management
