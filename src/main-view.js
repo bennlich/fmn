@@ -223,11 +223,7 @@
     //  ---------------
 
     joinRoom(e) {
-      return; // TODO: get username of active user and add to participants
-      var participantsObj = {};
-      //participantsObj[this.activeUser] = 'username'
-      this.participantsRef = this.roomRef.child("participants");
-      this.participantsRef.set(participantsObj);
+      this.participantsRef.child(this.user.uid).set(this.user.username);
     }
 
     loadRoom(roomName) {
