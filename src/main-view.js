@@ -168,7 +168,10 @@
           console.log("Successfully created user account with uid:", userData.uid);
           var username = this.username.value;
           // Adding user to users list in Firebase
-          usersRef.child(userData.uid).set({ "username": username });
+          usersRef.child(userData.uid).set({
+            "username": username,
+            "uid": userData.uid
+          });
 
           this.authenticateUser(e);
         }
