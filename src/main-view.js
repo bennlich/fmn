@@ -1,9 +1,8 @@
 <main-view>
 
   <div class="header">
-    <div class="error-message" if="{error}">{error}</div>
-
     <div class="login">
+
       <div if="{!activeUser }">
         <div class="login-button" if="{ !visibleForm }" onclick="{ showSignup }">Create account</div>
         <div class="login-button" if="{ !visibleForm }" onclick="{ showLogin }">Log in</div>
@@ -22,7 +21,9 @@
         <input type="password" name="password" value="" placeholder="Password">
         <input type="submit" value="Log In" onclick="{ authenticateUser }">
       </form>
+
       <div class="login-button" if="{ visibleForm }" onclick="{ hideLogin }">Back</div>
+      <div class="error-message" if="{ error }">{ error }</div>
     </div>
   </div>
 
@@ -159,6 +160,8 @@
             default:
               console.log("Error creating user:", error);
           }
+          this.error = error;
+          this.update();
         } else {
           console.log("Successfully created user account with uid:", userData.uid);
           var username = this.username.value;
@@ -181,8 +184,9 @@
         password : password
       }, (err, res) => {
         if (err) {
-          this.error = err;
           console.log("Login Failed!", err);
+          this.error = err;
+          this.update();
         }
       });
     };
