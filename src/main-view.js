@@ -238,7 +238,7 @@
       this.participantsRef = this.roomRef.child("participants");
 
       // Test participants in Firebase
-      this.participantsRef.set({
+      this.participantsRef.update({
            "player_id1": "caro",
            "player_id2": "benny",
            "player_id3": "ben",
