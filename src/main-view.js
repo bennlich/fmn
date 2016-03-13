@@ -3,12 +3,12 @@
   <div class="header">
     <div class="login">
 
-      <div if="{!activeUser }">
+      <div if="{ !userRef }">
         <div class="login-button" if="{ !visibleForm }" onclick="{ showSignup }">Create account</div>
         <div class="login-button" if="{ !visibleForm }" onclick="{ showLogin }">Log in</div>
       </div>
 
-      <div class="login-button" if="{ activeUser }" onclick="{ logoutUser }">Logout</div>
+      <div class="login-button" if="{ userRef }" onclick="{ logoutUser }">Logout</div>
 
       <form id="fmn-login" if="{ visibleForm == 'signup' }">
         <input type="text" name="email" value="" placeholder="email@email.com">
@@ -32,7 +32,7 @@
       <div class="participant" each={ id, name in participants }>
         { name }
       </div>
-      <button if="{activeUser}" onclick="{ joinRoom }">Join Room!</button>
+      <div class="button purple" if="{ userRef }" onclick="{ joinRoom }">Join Room!</div>
     </div>
     
     <div class="track-list-and-submit">
@@ -66,6 +66,8 @@
 
     // model variables
     this.roomRef = null;
+    this.userRef = null;
+    this.user = null;
     this.tracks = [];
     this.participants = [];
     this.loginVisible = false;
@@ -199,10 +201,14 @@
       if (res) {
         console.log("Authenticated successfully with payload:", res);
         this.error = null;
-        this.activeUser = res.uid;  // change to { id: res.uid, username:  getUsername } ?
         this.hideLogin();
+        this.userRef = usersRef.child(res.uid);
+        this.userRef.on("value", (snap) => {
+          this.user = snap.val();
+        });
       } else {
-        this.activeUser = null;
+        this.userRef = null;
+        this.user = null;
       }
       this.update();
     }
