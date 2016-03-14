@@ -32,7 +32,7 @@
       <div class="participant" each={ id, name in participants }>
         { name }
       </div>
-      <div class="button purple" if="{ userRef }" onclick="{ joinRoom }">Join Room!</div>
+      <div class="button purple" if="{ userRef && !isParticipant() }" onclick="{ joinRoom }">Join Room!</div>
     </div>
     
     <div class="track-list-and-submit">
@@ -221,6 +221,10 @@
     //  ---------------
     //  room management
     //  ---------------
+
+    isParticipant() {
+      return this.user.uid in this.participants;
+    }
 
     joinRoom(e) {
       this.participantsRef.child(this.user.uid).set(this.user.username);
