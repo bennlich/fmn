@@ -228,10 +228,12 @@
 
     joinRoom(e) {
       this.participantsRef.child(this.user.uid).set(this.user.username);
+      this.userRef.child("rooms").push(this.roomName);
     }
 
     loadRoom(roomName) {
       console.log("Loading room", roomName);
+      this.roomName = roomName;
 
       // remove old listeners
       if (this.roomRef) {
