@@ -208,6 +208,7 @@
         this.userRef = usersRef.child(res.uid);
         this.userRef.on("value", (snap) => {
           this.user = snap.val();
+          this.update();
         });
       } else {
         this.userRef = null;
