@@ -251,7 +251,6 @@
       });
 
       // Update our model when the datastore changes
-      console.log("Listening to room", this.roomRef.toString());
       this.roomRef.on("value", function(snap) {
         this.tracks = snap.child("tracks").val();
         this.participants = snap.child("participants").val();
