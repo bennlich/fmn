@@ -46,7 +46,7 @@
         </div>
       </div>
 
-      <div class="submit-track">
+      <div class="submit-track" if="{ userRef && isParticipant() }">
         <input name="urlInput" type="text" placeholder="Enter URL" onkeypress="{ submitTrackOnEnter }" />
         <div class="submit-track-button" onclick="{ submitTrack }">Submit</div>
       </div>
