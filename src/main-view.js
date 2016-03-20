@@ -217,8 +217,6 @@
       this.update();
     }
 
-    dbRef.onAuth(this.authCallback);
-
     //  ---------------
     //  room management
     //  ---------------
@@ -263,6 +261,11 @@
         // by the event handlers. Try commenting out the line below.
         this.update();
       }.bind(this));
+
+      // TODO: It doesn't seem like authentication really belongs
+      // in loadRoom(), but there's occasinally a rendering bug
+      // when it's outside. wtf.
+      dbRef.onAuth(this.authCallback);
     }
 
     // listen for room change events fired from
