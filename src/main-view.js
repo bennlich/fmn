@@ -108,10 +108,11 @@
       });
       this.urlInput.value = "";
 
-      youtubeHelper.getVideoDetailsForId(videoId, function(res) {
+      youtubeHelper.getVideoDetailsForId(videoId, (res) => {
         trackRef.update({
           title: res.title,
-          thumbnail: res.thumbnails.default
+          thumbnail: res.thumbnails.default,
+          userId: this.user.uid
         });
       });
     }
