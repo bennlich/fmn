@@ -59,7 +59,7 @@
 
   <script>
     // for debug
-    window.mainView = this;
+    window.app = this;
 
     // make the dependency on other modules explicit at top of script
     var youtubeHelper = window.youtubeHelper;
