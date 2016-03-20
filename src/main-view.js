@@ -68,8 +68,8 @@
     this.roomRef = null;
     this.userRef = null;
     this.user = null;
-    this.tracks = [];
-    this.participants = [];
+    this.tracks = {};
+    this.participants = {};
     this.loginVisible = false;
 
     // our datastore
