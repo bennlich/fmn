@@ -29,8 +29,8 @@
 
   <div class="main-container">
     <div class="participants">
-      <div class="participant" each={ id, name in participants }>
-        { name }
+      <div class="participant" each={ id, player in participants }>
+        { player.name }
       </div>
       <div class="button purple" if="{ userRef && !isParticipant() }" onclick="{ joinRoom }">Join Room!</div>
     </div>
@@ -228,7 +228,7 @@
     }
 
     joinRoom(e) {
-      this.participantsRef.child(this.user.uid).set(this.user.username);
+      this.participantsRef.child(this.user.uid).set({ name: this.user.username });
       this.userRef.child("rooms").push(this.roomName);
     }
 
@@ -246,10 +246,10 @@
 
       // Test participants in Firebase
       this.participantsRef.update({
-           "player_id1": "caro",
-           "player_id2": "benny",
-           "player_id3": "ben",
-           "player_id4": "tim" ,
+           "player_id1": { name: "caro" },
+           "player_id2": { name: "benny" },
+           "player_id3": { name: "ben" },
+           "player_id4": { name: "tim" },
       });
 
       // Update our model when the datastore changes
