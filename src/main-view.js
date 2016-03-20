@@ -46,7 +46,7 @@
         </div>
       </div>
 
-      <div class="submit-track" if="{ userRef && isParticipant() }">
+      <div class="submit-track" if="{ isParticipant() }">
         <input name="urlInput" type="text" placeholder="Enter URL" onkeypress="{ submitTrackOnEnter }" />
         <div class="submit-track-button" onclick="{ submitTrack }">Submit</div>
       </div>
@@ -224,7 +224,7 @@
     //  ---------------
 
     isParticipant() {
-      return this.user.uid in this.participants;
+      return this.user && (this.user.uid in this.participants);
     }
 
     joinRoom(e) {
