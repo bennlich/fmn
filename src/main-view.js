@@ -27,33 +27,43 @@
     </div>
   </div>
 
-  <div class="main-container">
-    <div class="participants">
-      <div class="participant" each={ id, player in participants }>
-        { player.name }
-      </div>
-      <div class="button purple" if="{ userRef && !isParticipant() }" onclick="{ joinRoom }">Join Room!</div>
+  <div class="submit-track-wrapper">
+    <div class="submit-track" if="{ isParticipant() }">
+      <input name="urlInput" type="text" placeholder="Enter URL" onkeypress="{ submitTrackOnEnter }" />
+      <div class="submit-track-button" onclick="{ submitTrack }">Submit</div>
     </div>
-    
-    <div class="track-list-and-submit">
-      <div class="track-list">
-        <div class="track" each={ key, track in tracks } onclick="{ setVideoUrl }">
-          <img class="track-thumbnail" src="{ track.thumbnail.url }">
-          <div class="track-title">
-            <div if="{ track.title }">{ track.title }</div>
-            <div if="{ !track.title }">{ track.url }</div>
-          </div>
+  </div>
+
+  <div class="track-list-wrapper">
+    <div class="track-list">
+      <div class="track" each={ key, track in tracks } onclick="{ setVideoUrl }">
+        <img class="track-thumbnail" src="{ track.thumbnail.url }">
+        <div class="track-title">
+          <div if="{ track.title }">{ track.title }</div>
+          <div if="{ !track.title }">{ track.url }</div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="submit-track" if="{ isParticipant() }">
-        <input name="urlInput" type="text" placeholder="Enter URL" onkeypress="{ submitTrackOnEnter }" />
-        <div class="submit-track-button" onclick="{ submitTrack }">Submit</div>
+  <div class="video-and-chat-wrapper">
+    <div class="video-and-chat">
+
+      <div class="video">
+        <div class="no-video" if="{ !videoSrc }">
+          <div class="arrow">&#8592;</div>
+          <div class="helper-text">click on a track in the list to play it</div>
+        </div>
+        <iframe id="video-player" if="{ videoSrc }" src="{ videoSrc }" type="text/html" width="640" height="390" frameborder="0"></iframe>
+      </div>
+      
+      <div class="chat">
+        <div class="participant" each={ id, player in participants }>
+          { player.name }
+        </div>
+        <div class="button purple" if="{ userRef && !isParticipant() }" onclick="{ joinRoom }">Join Room!</div>
       </div>
 
-      <div class="video-container">
-        <iframe id="video-player" src="{ videoSrc }" type="text/html" width="640" height="390" frameborder="0"></iframe>
-      </div>
     </div>
   </div>
 

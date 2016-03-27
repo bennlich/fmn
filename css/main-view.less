@@ -2,6 +2,10 @@ html {
   font-family: sans-serif;
 }
 
+body {
+  margin: 0px;
+}
+
 .button {
   -webkit-user-select: none;
   cursor: pointer;
@@ -14,7 +18,7 @@ html {
 }
 
 .header {
-  position: absolute;
+  position: fixed;
   top: 0px;
   right: 0px;
   .login {
@@ -34,57 +38,91 @@ html {
   }
 }
 
-.main-container {
-  display: flex;
-  width: 700px;
-  margin: 0px auto;
-  margin-top: 200px;
-  
-  .participants {
-    min-width: 120px;
+.submit-track-wrapper {
+  position: fixed;
+  width: 50%;
+
+  .submit-track {
+    display: flex;
+    width: 600px;
+    margin: 0px auto;
+    padding-top: 20px;
+    background: white;
+
+    .submit-track-button {
+      .button;
+      flex: 0 0 100px;
+      background: #B5D2EA;
+    }
+
+    input {
+      font: inherit;
+      width: 100%;
+      padding-left: 10px;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.track-list-wrapper {
+  padding: 100px 0px;
+  width: 50%;
+
+  .track-list {
+    font-family: monospace;
+    background: #444;
+    color: white;
+    width: 600px;
+    margin: 0px auto;
+
+    .track {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid;
+      .button;
+      .track-thumbnail {
+        
+      }
+      .track-title {
+        padding: 0px 30px;
+      }
+    } 
   }
 
-  .track-list-and-submit {
-    width: 100%;
-    margin-left: 10px;
+}
 
-    .track-list {
-      font-family: monospace;
-      background: #444;
-      color: white;
-
-      .track {
+.video-and-chat-wrapper {
+  position: fixed;
+  width: 50%;
+  top: 100px;
+  right: 0px;
+  display: flex;
+  flex-direction: column;
+  .video-and-chat {
+    margin: 0px auto;
+    width: 640px;
+    height: 390px;
+    .video {
+      .no-video {
+        border: 1px dashed #aaa;
+        height: 100%;
+        color: #aaa;
         display: flex;
         align-items: center;
-        border-bottom: 1px solid;
-        .button;
-        .track-thumbnail {
-          
+        justify-content: center;
+        .arrow {
+          font-size: 40px;
         }
-        .track-title {
-          padding: 0px 30px;
-        }
-      }
-    }
-
-    .submit-track {
-      display: flex;
-
-      .submit-track-button {
-        .button;
-        flex: 0 0 100px;
-        background: #B5D2EA;
-      }
-
-      input {
-        font: inherit;
-        width: 100%;
-        padding-left: 10px;
-        &:focus {
-          outline: none;
+        .helper-text {
+          font-size: 20px;
         }
       }
     }
+  }
+  .chat {
+    padding: 10px;
   }
 }
 
