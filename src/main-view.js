@@ -42,6 +42,7 @@
           <div if="{ track.title }">{ track.title }</div>
           <div if="{ !track.title }">{ track.url }</div>
         </div>
+        <div class="track-color" style="background: { participants[track.userId].color }"></div>
       </div>
     </div>
   </div>
@@ -59,7 +60,8 @@
       
       <div class="chat">
         <div class="participant" each={ id, player in participants }>
-          { player.name }
+          <div class="player-color" style="background: { player.color }"></div>
+          <div>{ player.name }</div>
         </div>
         <div class="button purple" if="{ userRef && !isParticipant() }" onclick="{ joinRoom }">Join Room!</div>
       </div>
@@ -237,7 +239,11 @@
     }
 
     joinRoom(e) {
-      this.participantsRef.child(this.user.uid).set({ name: this.user.username });
+      var color = randomColor();
+      this.participantsRef.child(this.user.uid).set({
+        name: this.user.username,
+        color: color
+      });
       this.userRef.child("rooms").push(this.roomName);
     }
 
