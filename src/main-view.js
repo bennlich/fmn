@@ -42,7 +42,7 @@
           <div if="{ title }">{ title }</div>
           <div if="{ !title }">{ url }</div>
         </div>
-        <div class="track-color" style="background: { participants[userId].color }"></div>
+        <div class="track-color" style="background: { getPlayerColor(userId) }"></div>
       </div>
     </div>
   </div>
@@ -59,9 +59,9 @@
       </div>
       
       <div class="chat">
-        <div class="participant" each={ id, player in participants }>
-          <div class="player-color" style="background: { player.color }"></div>
-          <div>{ player.name }</div>
+        <div class="participant" each={ participants }>
+          <div class="player-color" style="background: { color }"></div>
+          <div>{ name }</div>
         </div>
         <div class="button purple" if="{ userRef && !isParticipant() }" onclick="{ joinRoom }">Join Room!</div>
 
@@ -270,17 +270,31 @@
       this.update();
     }
 
+    //  -----------------------
+    //  player helper functions
+    //  -----------------------
+
+    isParticipant() {
+      return this.user && this.getPlayer(this.user.uid);
+    }
+
+    getPlayer(userId) {
+      return this.participants.find((player) => userId == player.userId);
+    }
+
+    getPlayerColor(userId) {
+      var player = this.getPlayer(userId);
+      return player.color;
+    }
+
     //  ---------------
     //  room management
     //  ---------------
 
-    isParticipant() {
-      return this.user && (this.user.uid in this.participants);
-    }
-
     joinRoom(e) {
       var color = randomColor();
-      this.participantsRef.child(this.user.uid).set({
+      this.participantsRef.push({
+        userId: this.user.uid,
         name: this.user.username,
         color: color
       });
@@ -299,25 +313,10 @@
       this.roomRef = dbRef.child("rooms/"+roomName);
       this.participantsRef = this.roomRef.child("participants");
 
-      // Test participants in Firebase
-      this.participantsRef.update({
-           "player_id1": { name: "caro" },
-           "player_id2": { name: "benny" },
-           "player_id3": { name: "ben" },
-           "player_id4": { name: "tim" },
-      });
-
       // Update our model when the datastore changes
       this.tracks = Firebase.getAsArray(this.roomRef.child("tracks"));
       this.chats = Firebase.getAsArray(this.roomRef.child("chats"));
-      this.roomRef.on("value", function(snap) {
-        this.participants = snap.child("participants").val();
-        // Force riot to re-render when the datastore changes.
-        // Turns out this is only actually needed for the initial
-        // render--subsequent renders are triggered automatically
-        // by the event handlers. Try commenting out the line below.
-        this.update();
-      }.bind(this));
+      this.participants = Firebase.getAsArray(this.participantsRef);
 
       // TODO: It doesn't seem like authentication really belongs
       // in loadRoom(), but there's occasinally a rendering bug
