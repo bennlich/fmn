@@ -29,9 +29,13 @@
 
   <div class="submit-track-wrapper">
     <div class="submit-track" if="{ isParticipant() }">
-      <input name="urlInput" type="text" placeholder="Enter URL" onkeypress="{ submitTrackOnEnter }" />
-      <div class="submit-track-button" onclick="{ submitTrack }">Submit</div>
+      <div class="submit-track-input">
+        <input name="urlInput" type="text" placeholder="Paste a youtube url here" onkeypress="{ submitTrackOnEnter }" />
+        <div class="submit-track-button" onclick="{ submitTrack }">Submit</div>
+      </div>
+      <div class="turn-indicator">it's { getNextPlayer().name }'s turn</div>
     </div>
+    
   </div>
 
   <div class="track-list-wrapper">
@@ -274,12 +278,25 @@
     //  player helper functions
     //  -----------------------
 
+    getNextPlayer() {
+      var mostRecentTrack = this.tracks[this.tracks.length - 1],
+          mostRecentPlayerId = mostRecentTrack.userId,
+          mostRecentPlayerTurnOrder = this.getPlayerTurnOrder(mostRecentPlayerId),
+          nextPlayerTurnOrder = (mostRecentPlayerTurnOrder + 1) % this.participants.length,
+          nextPlayer = this.participants[nextPlayerTurnOrder];
+      return nextPlayer;
+    }
+
     isParticipant() {
       return this.user && this.getPlayer(this.user.uid);
     }
 
     getPlayer(userId) {
       return this.participants.find((player) => userId == player.userId);
+    }
+
+    getPlayerTurnOrder(userId) {
+      return this.participants.findIndex((player) => userId == player.userId);
     }
 
     getPlayerColor(userId) {

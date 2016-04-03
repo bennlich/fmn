@@ -44,27 +44,36 @@ body {
   width: 50%;
 
   .submit-track {
-    display: flex;
     width: 600px;
     margin: 0px auto;
     padding-top: 20px;
     background: white;
+    border-bottom: 1px solid #eee;
 
-    .submit-track-button {
-      .button;
-      flex: 0 0 100px;
-      background: #B5D2EA;
-    }
+    .submit-track-input {
+      display: flex;
+      .submit-track-button {
+        .button;
+        flex: 0 0 100px;
+        background: #B5D2EA;
+      }
 
-    input {
-      font: inherit;
-      width: 100%;
-      padding-left: 10px;
-      &:focus {
-        outline: none;
+      input {
+        font: inherit;
+        width: 100%;
+        padding-left: 10px;
+        &:focus {
+          outline: none;
+        }
       }
     }
+
+    .turn-indicator {
+      font-size: 90%;
+      padding: 10px;
+    } 
   }
+
 }
 
 .track-list-wrapper {
