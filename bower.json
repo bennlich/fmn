@@ -20,6 +20,7 @@
     "riot": "^2.3.15",
     "firebase": "^2.4.0",
     "less": "^2.6.0",
-    "randomcolor": "^0.4.4"
+    "randomcolor": "^0.4.4",
+    "firebase.getAsArray": "git@github.com:katowulf/Firebase.getAsArray.git"
   }
 }

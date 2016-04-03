@@ -36,13 +36,13 @@
 
   <div class="track-list-wrapper">
     <div class="track-list">
-      <div class="track" each={ key, track in tracks } onclick="{ setVideoUrl }">
-        <img class="track-thumbnail" src="{ track.thumbnail.url }">
+      <div class="track" each={ tracks.slice().reverse() } onclick="{ setVideoUrl }">
+        <img class="track-thumbnail" src="{ thumbnail.url }">
         <div class="track-title">
-          <div if="{ track.title }">{ track.title }</div>
-          <div if="{ !track.title }">{ track.url }</div>
+          <div if="{ title }">{ title }</div>
+          <div if="{ !title }">{ url }</div>
         </div>
-        <div class="track-color" style="background: { participants[track.userId].color }"></div>
+        <div class="track-color" style="background: { participants[userId].color }"></div>
       </div>
     </div>
   </div>
@@ -134,7 +134,7 @@
     //  ------------
 
     setVideoUrl(event) {
-      var track = event.item.track;
+      var track = event.item;
       this.videoSrc = "http://www.youtube.com/embed/"+track.videoId;
     };
 
@@ -267,9 +267,10 @@
            "player_id4": { name: "tim" },
       });
 
+      this.tracks = Firebase.getAsArray(this.roomRef.child("tracks"));
+
       // Update our model when the datastore changes
       this.roomRef.on("value", function(snap) {
-        this.tracks = snap.child("tracks").val();
         this.participants = snap.child("participants").val();
         // Force riot to re-render when the datastore changes.
         // Turns out this is only actually needed for the initial
