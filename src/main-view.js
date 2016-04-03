@@ -331,9 +331,9 @@
       this.participantsRef = this.roomRef.child("participants");
 
       // Update our model when the datastore changes
-      this.tracks = Firebase.getAsArray(this.roomRef.child("tracks"));
-      this.chats = Firebase.getAsArray(this.roomRef.child("chats"));
-      this.participants = Firebase.getAsArray(this.participantsRef);
+      this.tracks = Firebase.getAsArray(this.roomRef.child("tracks"), () => this.update());
+      this.chats = Firebase.getAsArray(this.roomRef.child("chats"), () => this.update());
+      this.participants = Firebase.getAsArray(this.participantsRef, () => this.update());
 
       // TODO: It doesn't seem like authentication really belongs
       // in loadRoom(), but there's occasinally a rendering bug
