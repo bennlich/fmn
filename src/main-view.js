@@ -64,7 +64,24 @@
           <div>{ player.name }</div>
         </div>
         <div class="button purple" if="{ userRef && !isParticipant() }" onclick="{ joinRoom }">Join Room!</div>
+
       </div>
+
+      <div class="chat-conversation">
+        <div class="message" each={ chats } >
+          <div class="message-text">
+            <div>{ chat }</div>
+          </div>
+          <div class="message-color" style="background: { participants[userId].color }"></div>
+        </div>
+      </div>
+
+      <div class="submit-chat-wrapper">
+        <div class="submit-chat" if="{ isParticipant() }">
+          <input name="chatInput" type="text" onkeypress="{ submitChatOnEnter }" />
+        </div>
+      </div>
+  
 
     </div>
   </div>
@@ -92,12 +109,12 @@
     //  track list
     //  ----------
 
-    submitTrackOnEnter(e) {
+    submitTrackOnEnter(event) {
       var enter_key = 13;
-      if (e.which === enter_key) {
+      if (event.which === enter_key) {
         this.submitTrack();
       }
-      return true;
+      return true; // allows default behavior (typing in input field)
     }
 
     submitTrack() {
@@ -128,6 +145,29 @@
         });
       });
     }
+
+    //  ------------
+    //  chat window
+    //  ------------
+
+    submitChatOnEnter(event) {
+      var enter_key = 13;
+      if (event.which === enter_key) {
+        this.submitChat();
+      }
+      return true; // allows default behavior (typing in input field)
+    }
+
+    submitChat() {
+      var chat = this.chatInput.value;
+
+      var chatRef = this.roomRef.child("chats").push({
+        chat: chat,
+      });
+      this.chatInput.value = "";
+
+    }
+
 
     //  ------------
     //  video player
@@ -267,9 +307,9 @@
            "player_id4": { name: "tim" },
       });
 
-      this.tracks = Firebase.getAsArray(this.roomRef.child("tracks"));
-
       // Update our model when the datastore changes
+      this.tracks = Firebase.getAsArray(this.roomRef.child("tracks"));
+      this.chats = Firebase.getAsArray(this.roomRef.child("chats"));
       this.roomRef.on("value", function(snap) {
         this.participants = snap.child("participants").val();
         // Force riot to re-render when the datastore changes.
