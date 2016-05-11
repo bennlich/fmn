@@ -1,5 +1,5 @@
 <main-view>
-COOKIES
+
   <div class="header">
     <div class="login">
 
