@@ -17,10 +17,10 @@
     "tests"
   ],
   "dependencies": {
-    "riot": "^2.3.15",
-    "less": "^2.6.0",
-    "randomcolor": "^0.4.4",
-    "firebase": "^2.4.2",
+    "riot": "2.3.15",
+    "less": "2.6.0",
+    "randomcolor": "0.4.4",
+    "firebase": "2.4.2",
     "firebase.getAsArray": "https://github.com/bennlich/Firebase.getAsArray.git"
   }
 }
