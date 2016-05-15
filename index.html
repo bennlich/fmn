@@ -2,28 +2,42 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF8">
   </head>
+  
   <body>
-    <main-view></main-view>
+    <div id="app">
+      <router-view></router-view>
+    </div>
   </body>
-  <link rel="stylesheet/less" type="text/css" href="css/main-view.less">
+
   <script src="bower_components/randomcolor/randomColor.js"></script>
   <script src="bower_components/firebase/firebase.js"></script>
   <script src="bower_components/firebase.getAsArray/src/firebase-as-array.js"></script>
-  <script src="bower_components/riot/riot+compiler.min.js"></script>
+
+  <link rel="stylesheet/less" type="text/css" href="index.less">
   <script src="bower_components/less/dist/less.js"></script>
-  <script src="src/main-view.js" type="riot/tag"></script>
-  <script src="src/bob-view.js" type="riot/tag"></script>
-  <script src="src/youtube-helper.js"></script>
+
+  <script>
+    // setup youtube API
+    var youtubeAPIKey = "AIzaSyBIyAMsIGLWV3vx_DdoP2yKjdh92PWjrh8";
+    window.initYoutubeAPI = function() {
+      gapi.client.setApiKey(youtubeAPIKey);
+      gapi.client.load('youtube', 'v3');
+    }
+  </script>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://apis.google.com/js/client.js?onload=initYoutubeAPI"></script>
-  <script>
-    // Router events
-    var roomEvents = riot.observable();
 
-    riot.route('/*', function(roomName) {
-      roomEvents.trigger('change', roomName);
+  <script src="bower_components/system.js/dist/system.src.js"></script>
+  <script>
+    System.config({
+      map: {
+        traceur: 'bower_components/traceur/traceur.min.js',
+        text: 'bower_components/plugin-text/text.js'
+      },
+      transpiler: 'traceur',
+      baseURL: '/'
     });
-    riot.route.start(true);
+    System.import('./index.js');
   </script>
-  <script>riot.mount('main-view', { roomEvents: roomEvents })</script>
+  
 </html>

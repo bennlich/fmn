@@ -1,0 +1,14 @@
+<div class="chat-conversation">
+  <div class="message" v-for="chat in chats">
+    <div class="message-text">
+      <div>{{ chat.chat }}</div>
+    </div>
+    <div class="message-color" v-bind:style="{ background: getPlayerColor(chat.userId) }"></div>
+  </div>
+</div>
+
+<div class="submit-chat-wrapper">
+  <div class="submit-chat" v-show="user.data && isParticipant(user.data.uid)">
+    <input v-model="chatText" type="text" v-on:keyup.enter="submitChat" />
+  </div>
+</div>

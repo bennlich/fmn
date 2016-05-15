@@ -1,0 +1,23 @@
+<div class="login">
+  <div v-show="!user.ref">
+    <div class="login-button" v-show="!visibleForm" v-on:click="showSignup">Create account</div>
+    <div class="login-button" v-show="!visibleForm" v-on:click="showLogin">Log in</div>
+  </div>
+
+  <div class="login-button" v-show="user.ref" v-on:click="logoutUser">Logout</div>
+
+  <form id="fmn-login" v-show="visibleForm == 'signup'">
+    <input type="text" v-model="email" value="" placeholder="email@email.com">
+    <input type="text" v-model="username" value="" placeholder="Username">
+    <input type="password" v-model="password" value="" placeholder="Password">
+    <input type="submit" value="Create Account" v-on:click="addUser">
+  </form>
+  <form id="fmn-login" v-show="visibleForm == 'login'">
+    <input type="text" v-model="email" value="" placeholder="email@email.com">
+    <input type="password" v-model="password" value="" placeholder="Password">
+    <input type="submit" value="Log In" v-on:click="authenticateUser">
+  </form>
+
+  <div class="login-button" v-show="visibleForm" v-on:click="hideLogin">Back</div>
+  <div class="error-message" v-show="error">{{ error }}</div>
+</div>

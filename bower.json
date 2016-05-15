@@ -2,7 +2,8 @@
   "name": "FMN",
   "authors": [
     "Benny Lichtner <bennlich@gmail.com>",
-    "Carolyn Atterbury"
+    "Carolyn Atterbury",
+    "Marie Atterbury"
   ],
   "description": "family music night homigosh",
   "main": "",
@@ -17,7 +18,11 @@
     "tests"
   ],
   "dependencies": {
-    "riot": "2.3.15",
+    "vue": "1.0.24",
+    "vue-router": "0.7.13",
+    "system.js": "0.19.27",
+    "plugin-text": "https://github.com/systemjs/plugin-text.git#0.0.8",
+    "traceur": "0.0.108",
     "less": "2.6.0",
     "randomcolor": "0.4.4",
     "firebase": "2.4.2",
