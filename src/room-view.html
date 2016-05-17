@@ -30,7 +30,8 @@
   <div class="submit-track" v-show="isParticipant(user.data.uid)">
     <div class="submit-track-input">
       <input v-model="urlInput" type="text" placeholder="Paste a youtube url here" v-on:keyup.enter="submitTrack" />
-      <div class="submit-track-button" v-on:click="submitTrack">Submit</div>
+      <div class="submit-track-button" v-on:click="submitTrack" v-show="userIsNextPlayer()">Submit</div>
+      <div class="submit-track-button" v-on:click="submitTrack" v-show="!userIsNextPlayer()">Submit out of turn</div>
     </div>
     <div class="turn-indicator">it's {{ getNextPlayer().name }}'s turn</div>
   </div>

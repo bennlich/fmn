@@ -83,6 +83,11 @@ const RoomView = Vue.extend({
       return nextPlayer;
     },
 
+    userIsNextPlayer: function() {
+      var nextPlayer = this.getNextPlayer();
+      return nextPlayer.userId === this.user.data.uid;
+    },
+
     setVideoUrl: function(track) {
       this.videoSrc = "http://www.youtube.com/embed/"+track.videoId;
     },
