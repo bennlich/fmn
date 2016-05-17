@@ -18,7 +18,7 @@
         <div class="player-color" v-bind:style="{ background: player.color }"></div>
         <div>{{ player.name }}</div>
       </div>
-      <div class="button purple" v-show="user.data && participants.data.length > 0 && !userIsParticipant()" v-on:click="joinRoom">Join Room!</div>
+      <div class="button purple" v-show="user.data && !userIsParticipant()" v-on:click="joinRoom">Join Room!</div>
     </div>
 
     <chat v-bind:room-ref="roomRef"></chat>
