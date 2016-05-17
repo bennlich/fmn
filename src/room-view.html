@@ -2,29 +2,6 @@
   <login></login>
 </div>
 
-<div class="submit-track-wrapper">
-  <div class="submit-track" v-show="isParticipant(user.data.uid)">
-    <div class="submit-track-input">
-      <input v-model="urlInput" type="text" placeholder="Paste a youtube url here" v-on:keyup.enter="submitTrack" />
-      <div class="submit-track-button" v-on:click="submitTrack">Submit</div>
-    </div>
-    <div class="turn-indicator">it's {{ getNextPlayer().name }}'s turn</div>
-  </div>
-</div>
-
-<div class="track-list-wrapper">
-  <div class="track-list">
-    <div class="track" v-for="track in sortedTracks" v-on:click="setVideoUrl(track)">
-      <img class="track-thumbnail" v-bind:src="track.thumbnail ? track.thumbnail.url : ''">
-      <div class="track-title">
-        <div v-show="track.title">{{ track.title }}</div>
-        <div v-show="!track.title">{{ track.url }}</div>
-      </div>
-      <div class="track-color" v-bind:style="{ background: getPlayerColor(track.userId) }"></div>
-    </div>
-  </div>
-</div>
-
 <div class="video-and-chat-wrapper">
   <div class="video-and-chat">
 
@@ -46,5 +23,28 @@
 
     <chat v-bind:room-ref="roomRef"></chat>
 
+  </div>
+</div>
+
+<div class="submit-track-wrapper">
+  <div class="submit-track" v-show="isParticipant(user.data.uid)">
+    <div class="submit-track-input">
+      <input v-model="urlInput" type="text" placeholder="Paste a youtube url here" v-on:keyup.enter="submitTrack" />
+      <div class="submit-track-button" v-on:click="submitTrack">Submit</div>
+    </div>
+    <div class="turn-indicator">it's {{ getNextPlayer().name }}'s turn</div>
+  </div>
+</div>
+
+<div class="track-list-wrapper">
+  <div class="track-list">
+    <div class="track" v-for="track in sortedTracks" v-on:click="setVideoUrl(track)">
+      <img class="track-thumbnail" v-bind:src="track.thumbnail ? track.thumbnail.url : ''">
+      <div class="track-title">
+        <div v-show="track.title">{{ track.title }}</div>
+        <div v-show="!track.title">{{ track.url }}</div>
+      </div>
+      <div class="track-color" v-bind:style="{ background: getPlayerColor(track.userId) }"></div>
+    </div>
   </div>
 </div>
