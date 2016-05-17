@@ -75,6 +75,9 @@ const RoomView = Vue.extend({
     },
 
     getNextPlayer: function() {
+      if (this.tracks.length === 0)
+        return null;
+      
       var mostRecentTrack = this.tracks[this.tracks.length - 1],
           mostRecentPlayerId = mostRecentTrack.userId,
           mostRecentPlayerTurnOrder = this.getPlayerTurnOrder(mostRecentPlayerId),
@@ -83,9 +86,14 @@ const RoomView = Vue.extend({
       return nextPlayer;
     },
 
+    getNextPlayerName: function() {
+      var nextPlayer = this.getNextPlayer();
+      if (nextPlayer) return nextPlayer.name;
+    },
+
     userIsNextPlayer: function() {
       var nextPlayer = this.getNextPlayer();
-      return nextPlayer.userId === this.user.data.uid;
+      return nextPlayer && (nextPlayer.userId === this.user.data.uid);
     },
 
     setVideoUrl: function(track) {

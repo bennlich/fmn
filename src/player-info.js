@@ -1,4 +1,5 @@
 import { participants } from './participants.js';
+import { user } from './user.js';
 
 let playerInfo = {
   data: function() {
@@ -7,8 +8,9 @@ let playerInfo = {
     };
   },
   methods: {
-    isParticipant: function(userId) {
-      return !!this.getPlayer(userId);
+    userIsParticipant: function() {
+      if (!user.data) return false;
+      return !!this.getPlayer(user.data.uid);
     },
 
     getPlayer: function(userId) {
