@@ -25,6 +25,11 @@ let playerInfo = {
     getPlayerColor: function(userId) {
       var player = this.getPlayer(userId);
       return player && player.color;
+    },
+
+    getPlayerId: function() {
+      var playerId = user.data.uid;
+      return playerId;
     }
   }
 };

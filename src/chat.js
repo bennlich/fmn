@@ -28,6 +28,7 @@ const Chat = Vue.extend({
       var chat = this.chatText;
       var chatRef = this.roomRef.child("chats").push({
         chat: chat,
+        userId: this.getPlayerId()
       });
       this.chatText = "";
     }
