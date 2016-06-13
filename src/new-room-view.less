@@ -1,0 +1,109 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .header {
+    flex: 40px 0 0;
+    padding: 10px;
+    box-sizing: border-box;
+    
+    .participant-list {
+      text-align: center;
+
+      .participant {
+        display: inline-flex;
+        align-items: center;
+        padding-right: 10px;
+
+        .player-color {
+          width: 12px;
+          height: 12px;
+          border-radius: 10px;
+          margin-right: 5px;
+        }
+      }
+    }
+
+    @import (less) "login.less";
+  }
+
+  .tabs {
+    flex: 40px 0 0;
+    display: flex;
+    justify-content: center;
+    .button {
+      display: inline-block;
+    }
+  }
+
+  .video {
+    margin: 0px auto;
+    @media (min-width: 640px) {
+      width: 640px;
+    }
+    .no-video {
+      border: 1px dashed #aaa;
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 390px;
+      .arrow {
+        font-size: 40px;
+      }
+      .helper-text {
+        font-size: 20px;
+      }
+    }
+
+    #video-player {
+      width: 100%;
+    }
+  }
+
+  .activities {
+    padding-top: 20px;
+    margin: 0px auto;
+    @media (min-width: 640px) {
+      width: 640px;
+    }
+    overflow: auto;
+    flex-grow: 1;
+
+    .message-color {
+      top: 0px;
+      bottom: 0px;
+      right: 0px;
+      width: 10px;
+      margin-right: 5px;
+    }
+    .message-text {
+      display: flex;
+    }
+  }
+}
+
+.submit-box {
+  margin: 0px auto;
+  margin-bottom: 10px;
+  @media (min-width: 640px) {
+    width: 640px;
+  }
+  .submit-track-input {
+    display: flex;
+    .submit-track-button {
+      .button;
+      background: #B5D2EA;
+    }
+
+    input {
+      font: inherit;
+      flex-grow: 1;
+      padding-left: 10px;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

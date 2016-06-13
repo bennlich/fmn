@@ -1,0 +1,39 @@
+<div class="main-container">
+  
+  <header class="header">
+    <div class="participant-list">
+      <div class="participant" v-for="player in participants.data">
+        <div class="player-color" v-bind:style="{ background: player.color }"></div>
+        <div>{{ player.name }}</div>
+      </div>
+    </div>
+    <login></login>
+  </header>
+
+  <div class="tabs">
+    <div class="button">Everything</div>
+    <div class="button">Songs</div>
+  </div>
+
+  <div class="video">
+    <div class="no-video" v-show="!videoSrc">
+      <div class="arrow">&#8592;</div>
+      <div class="helper-text">click on a track in the list to play it</div>
+    </div>
+    <iframe id="video-player" v-show="videoSrc" v-bind:src="videoSrc" type="text/html" width="640" height="390" frameborder="0"></iframe>
+  </div>
+
+  <div class="activities">
+    <chat v-bind:room-ref="roomRef"></chat>
+  </div>
+
+  <div class="submit-box">
+    <div class="submit-track-input">
+      <input v-model="urlInput" type="text" placeholder="Paste a youtube url here" v-on:keyup.enter="submitTrack" />
+      <div class="submit-track-button" v-on:click="submitTrack" v-show="userIsNextPlayer()">Submit</div>
+      <div class="submit-track-button" v-on:click="submitTrack" v-show="!userIsNextPlayer()">Submit out of turn</div>
+    </div>
+    <div class="button purple" v-show="user.data && !userIsParticipant()" v-on:click="joinRoom">Join Room!</div>
+  </div>
+
+</div>

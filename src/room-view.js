@@ -1,5 +1,5 @@
 import Vue from '../bower_components/vue/dist/vue.js';
-import template from './room-view.html!text';
+import template from './new-room-view.html!text';
 
 import { dbRef } from './db.js';
 import { user } from './user.js';
