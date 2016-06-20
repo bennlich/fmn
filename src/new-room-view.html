@@ -23,7 +23,7 @@
     <iframe id="video-player" v-show="videoSrc" v-bind:src="videoSrc" type="text/html" width="640" height="390" frameborder="0"></iframe>
   </div>
 
-  <div class="activities">
+  <div class="activities" v-scroll-activities="roomRef">
     <div class="activity" v-for="activity in activities">
       
       <div class="message-text" v-if="isChat(activity)">
