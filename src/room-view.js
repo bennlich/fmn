@@ -37,7 +37,7 @@ const RoomView = Vue.extend({
       roomName: null,
       roomRef: null,
       videoSrc: null,
-      urlInput: "",
+      userInput: "",
       activities: []
     };
   },
@@ -109,9 +109,21 @@ const RoomView = Vue.extend({
       this.videoSrc = "http://www.youtube.com/embed/"+track.videoId;
     },
 
-    submitTrack: function() {
-      var url = this.urlInput;
+    submitSomething: function() {
+      var textOrURL = this.userInput;
 
+      var youtubeRegex = /^(\S)*watch\?v=(\S)+$/;
+      if (youtubeRegex.test(textOrURL)) {
+        // it's a url
+        this.submitTrack(textOrURL);
+      } else {
+        this.submitChat(textOrURL);
+      }
+
+      this.userInput = "";
+    },
+
+    submitTrack: function(url) {
       // look for the video id in the pasted url
       var videoIdRegex = /v=([^&]*)&?/;
       var parsedUrl = videoIdRegex.exec(url);
@@ -126,16 +138,15 @@ const RoomView = Vue.extend({
       // save the track to the database
       // gotcha: we have to include empty fields for data yet-
       // to-come in order for Vue.js to watch them for changes
-      var trackRef = this.roomRef.child("tracks").push({
+      var activitiesRef = this.roomRef.child("activities");
+      var trackRef = activitiesRef.push({
         url: url,
+        type: "track",
         videoId: videoId,
         title: "",
         thumbnail: "",
         userId: ""
       });
-
-      // clear the url input field
-      this.urlInput = "";
 
       // get additional info about the video with the youtube API
       youtubeHelper.getVideoDetailsForId(videoId, (res) => {
@@ -144,6 +155,15 @@ const RoomView = Vue.extend({
           thumbnail: res.thumbnails.default,
           userId: this.user.data.uid
         });
+      });
+    },
+
+    submitChat: function(chat) {
+      var activitiesRef = this.roomRef.child("activities");
+      activitiesRef.push({
+        chat: chat,
+        type: "chat",
+        userId: this.getPlayerId()
       });
     }
   }
