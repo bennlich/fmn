@@ -9,9 +9,6 @@ import { youtubeHelper } from './youtube-helper.js';
 import Login from './login.js';
 Vue.component('login', Login);
 
-import Chat from './chat.js';
-Vue.component('chat', Chat);
-
 import { ScrollActivitiesDir } from './scroll-activities-dir.js';
 Vue.directive('scrollActivities', ScrollActivitiesDir);
 
