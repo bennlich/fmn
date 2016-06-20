@@ -41,6 +41,11 @@ const RoomView = Vue.extend({
       activities: []
     };
   },
+  computed: {
+    tracks: function() {
+      return this.activities.filter((activity) => activity.type === "track");
+    }
+  },
   methods: {
     isTrack: function(activity) {
       return activity.type === "track";
@@ -77,20 +82,12 @@ const RoomView = Vue.extend({
       this.activities = Firebase.getAsArray(this.roomRef.child("activities"));
     },
 
-    getTracks: function() {
-      var tracks = this.activities.filter((activity) => activity.type === "track");
-    },
-
-    getLatestTrack: function() {
-      var tracks = this.getTracks();
-      return tracks[tracks.length - 1];
-    },
-
     getNextPlayer: function() {
       if (this.activities.length === 0)
         return null;
 
-      var latestPlayerId = this.getLatestTrack().userId,
+      var latestTrack = this.tracks[this.tracks.length - 1],
+          latestPlayerId = latestTrack.userId,
           latestPlayerTurnOrder = this.getPlayerTurnOrder(latestPlayerId),
           nextPlayerTurnOrder = (latestPlayerTurnOrder + 1) % this.participants.data.length,
           nextPlayer = this.participants.data[nextPlayerTurnOrder];
