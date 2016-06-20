@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <div class="submit-box">
+  <div class="submit-box" v-show="user.data && userIsParticipant()">
     <div class="submit-track-input">
       <input v-model="urlInput" type="text" placeholder="Paste a youtube url here" v-on:keyup.enter="submitTrack" />
       <div class="submit-track-button" v-on:click="submitTrack" v-show="userIsNextPlayer()">Submit</div>
