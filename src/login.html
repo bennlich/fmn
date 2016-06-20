@@ -1,4 +1,4 @@
-<div class="login">
+<div class="login" v-bind:class="{ 'active': visibleForm }">
   <div v-show="!user.ref">
     <div class="login-button" v-show="!visibleForm" v-on:click="showSignup">Create account</div>
     <div class="login-button" v-show="!visibleForm" v-on:click="showLogin">Log in</div>
