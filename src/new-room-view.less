@@ -64,6 +64,7 @@
 
   .activities {
     padding-top: 20px;
+    padding-right: 15px;
     margin: 0px auto;
     @media (min-width: 640px) {
       width: 640px;
@@ -71,16 +72,36 @@
     overflow: auto;
     flex-grow: 1;
 
-    .message-color {
-      top: 0px;
-      bottom: 0px;
-      right: 0px;
-      width: 10px;
-      margin-right: 5px;
-    }
     .message-text {
       display: flex;
+
+      .message-color {
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        width: 10px;
+        margin-right: 5px;
+      }
     }
+
+    .track {
+      font-family: monospace;
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: #444;
+      color: white;
+      margin: 5px 0px;
+      .button;
+
+      .track-color {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        width: 20px;
+      }
+    } 
   }
 }
 

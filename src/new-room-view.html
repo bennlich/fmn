@@ -24,7 +24,22 @@
   </div>
 
   <div class="activities">
-    <chat v-bind:room-ref="roomRef"></chat>
+    <div class="activity" v-for="activity in activities">
+      
+      <div class="message-text" v-if="isChat(activity)">
+        <div class="message-color" v-bind:style="{ background: getPlayerColor(activity.userId)  }"></div>
+        <div>{{ activity.chat }}</div>
+      </div>
+
+      <div class="track" v-if="isTrack(activity)" v-on:click="setVideoUrl(activity)">
+        <div class="track-title">
+          <div v-show="activity.title">{{ activity.title }}</div>
+          <div v-show="!activity.title">{{ activity.url }}</div>
+        </div>
+        <div class="track-color" v-bind:style="{ background: getPlayerColor(activity.userId) }"></div>
+      </div>
+
+    </div>
   </div>
 
   <div class="submit-box">

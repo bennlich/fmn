@@ -38,15 +38,18 @@ const RoomView = Vue.extend({
       roomRef: null,
       videoSrc: null,
       urlInput: "",
-      tracks: []
+      activities: []
     };
   },
-  computed: {
-    sortedTracks: function() {
-      return this.tracks.slice().reverse();
-    }
-  },
   methods: {
+    isTrack: function(activity) {
+      return activity.type === "track";
+    },
+
+    isChat: function(activity) {
+      return activity.type === "chat";
+    },
+
     joinRoom: function(e) {
       var color = randomColor();
       this.participants.ref.push({
@@ -70,8 +73,8 @@ const RoomView = Vue.extend({
       this.participants.ref = this.roomRef.child("participants");
 
       // Update our model when the datastore changes
-      this.tracks = Firebase.getAsArray(this.roomRef.child("tracks"));
       this.participants.data = Firebase.getAsArray(this.participants.ref);
+      this.activities = Firebase.getAsArray(this.roomRef.child("activities"));
     },
 
     getNextPlayer: function() {
