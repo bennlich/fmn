@@ -1,51 +1,54 @@
-<div class="header">
-  <login></login>
-</div>
-
-<div class="video-and-chat-wrapper">
-  <div class="video-and-chat">
-
-    <div class="video">
-      <div class="no-video" v-show="!videoSrc">
-        <div class="arrow">&#8592;</div>
-        <div class="helper-text">click on a track in the list to play it</div>
-      </div>
-      <iframe id="video-player" v-show="videoSrc" v-bind:src="videoSrc" type="text/html" width="640" height="390" frameborder="0"></iframe>
-    </div>
-    
+<div class="main-container">
+  
+  <header class="header">
     <div class="participant-list">
       <div class="participant" v-for="player in participants.data">
         <div class="player-color" v-bind:style="{ background: player.color }"></div>
         <div>{{ player.name }}</div>
       </div>
-      <div class="button purple" v-show="user.data && !userIsParticipant()" v-on:click="joinRoom">Join Room!</div>
     </div>
+    <login></login>
+  </header>
 
-    <chat v-bind:room-ref="roomRef"></chat>
+  <a class="fish-head" href="https://chrome.google.com/webstore/detail/fmn/mgmbpijpcjcincjbpnnhjnjclaijhodj" target="_blank">
+    <img src="images/fish-head-small.png">
+  </a>
+  <!-- <div class="tabs">
+    <div class="button">Everything</div>
+    <div class="button">Songs</div>
+  </div> -->
 
-  </div>
-</div>
-
-<div class="submit-track-wrapper">
-  <div class="submit-track" v-show="userIsParticipant()">
-    <div class="submit-track-input">
-      <input v-model="urlInput" type="text" placeholder="Paste a youtube url here" v-on:keyup.enter="submitTrack" />
-      <div class="submit-track-button" v-on:click="submitTrack" v-show="userIsNextPlayer()">Submit</div>
-      <div class="submit-track-button" v-on:click="submitTrack" v-show="!userIsNextPlayer()">Submit out of turn</div>
+  <div class="video">
+    <div class="no-video" v-show="!videoSrc">
+      <div class="helper-text">aelfaiwefjaoiwfjoaifejao</div>
     </div>
-    <div class="turn-indicator">it's {{ getNextPlayerName() }}'s turn</div>
+    <iframe id="video-player" v-show="videoSrc" v-bind:src="videoSrc" type="text/html" width="640" height="390" frameborder="0"></iframe>
   </div>
-</div>
 
-<div class="track-list-wrapper">
-  <div class="track-list">
-    <div class="track" v-for="track in sortedTracks" v-on:click="setVideoUrl(track)">
-      <img class="track-thumbnail" v-bind:src="track.thumbnail ? track.thumbnail.url : ''">
-      <div class="track-title">
-        <div v-show="track.title">{{ track.title }}</div>
-        <div v-show="!track.title">{{ track.url }}</div>
+  <div class="activities" v-scroll-activities="roomRef">
+    <div class="activity" v-for="activity in activities">
+      
+      <div class="message-text" v-if="isChat(activity)">
+        <div class="message-color" v-bind:style="{ background: getPlayerColor(activity.userId)  }"></div>
+        <div>{{ activity.chat }}</div>
       </div>
-      <div class="track-color" v-bind:style="{ background: getPlayerColor(track.userId) }"></div>
+
+      <div class="track" v-if="isTrack(activity)" v-on:click="setVideoUrl(activity)">
+        <div class="track-title">
+          <div v-show="activity.title">{{ activity.title }}</div>
+          <div v-show="!activity.title">{{ activity.url }}</div>
+        </div>
+        <div class="track-color" v-bind:style="{ background: getPlayerColor(activity.userId) }"></div>
+      </div>
+
     </div>
   </div>
+
+  <div class="submit-box" v-show="user.data && userIsParticipant()">
+    <div class="submit-track-input">
+      <input v-model="userInput" type="text" placeholder="Submit a message or youtube url here" v-on:keyup.enter="submitSomething" />
+    </div>
+    <div class="button purple" v-show="user.data && !userIsParticipant()" v-on:click="joinRoom">Join Room!</div>
+  </div>
+
 </div>
