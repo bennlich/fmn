@@ -99,6 +99,16 @@ const RoomView = Vue.extend({
       if (nextPlayer) return nextPlayer.name;
     },
 
+    getPlaceholderText: function() {
+      var prefix = "";
+      if (this.userIsNextPlayer())
+        prefix = "It's your turn; ";
+      else
+        prefix = "It's "+this.getNextPlayerName()+"'s turn; ";
+      var postfix = "submit a message or youtube url here";
+      return prefix + postfix;
+    },
+
     userIsNextPlayer: function() {
       var nextPlayer = this.getNextPlayer();
       return nextPlayer && this.user.data &&
