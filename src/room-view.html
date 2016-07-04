@@ -44,11 +44,11 @@
     </div>
   </div>
 
-  <div class="submit-box" v-show="user.data && userIsParticipant()">
-    <div class="submit-track-input">
+  <div class="submit-box" v-show="user.data">
+    <div class="submit-track-input" v-show="userIsParticipant()">
       <input v-model="userInput" type="text" placeholder="Submit a message or youtube url here" v-on:keyup.enter="submitSomething" />
     </div>
-    <div class="button purple" v-show="user.data && !userIsParticipant()" v-on:click="joinRoom">Join Room!</div>
+    <div class="button purple" v-show="!userIsParticipant()" v-on:click="joinRoom">Join Room!</div>
   </div>
 
 </div>
