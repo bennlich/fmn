@@ -44,6 +44,15 @@ const RoomView = Vue.extend({
   computed: {
     tracks: function() {
       return this.activities.filter((activity) => activity.type === "track");
+    },
+    placeholderText: function() {
+      var prefix = "";
+      if (this.userIsNextPlayer())
+        prefix = "It's your turn; ";
+      else
+        prefix = "It's "+this.getNextPlayerName()+"'s turn; ";
+      var postfix = "submit a message or youtube url here";
+      return prefix + postfix;
     }
   },
   methods: {
@@ -97,16 +106,6 @@ const RoomView = Vue.extend({
     getNextPlayerName: function() {
       var nextPlayer = this.getNextPlayer();
       if (nextPlayer) return nextPlayer.name;
-    },
-
-    getPlaceholderText: function() {
-      var prefix = "";
-      if (this.userIsNextPlayer())
-        prefix = "It's your turn; ";
-      else
-        prefix = "It's "+this.getNextPlayerName()+"'s turn; ";
-      var postfix = "submit a message or youtube url here";
-      return prefix + postfix;
     },
 
     userIsNextPlayer: function() {
