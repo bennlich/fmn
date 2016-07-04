@@ -3,7 +3,10 @@
   <header class="header">
     <div class="participant-list">
       <div class="participant" v-for="player in participants.data">
-        <div class="player-color" v-bind:style="{ background: player.color }"></div>
+        <div class="player-color"
+             v-bind:style="{ background: player.color }"
+             v-bind:class="{ clickable: player.userId === user.data.uid }"
+             v-on:click="assignNewRandomColor"></div>
         <div>{{ player.name }}</div>
       </div>
     </div>

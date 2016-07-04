@@ -74,6 +74,12 @@ const RoomView = Vue.extend({
       this.user.ref.child("rooms").push(this.roomName);
     },
 
+    assignNewRandomColor: function() {
+      var user = this.participants.data
+        .find((participant) => participant.userId === this.user.data.uid);
+      this.participants.ref.child(user.$id+"/color").set(randomColor());
+    },
+
     loadRoom: function(roomName) {
       console.log("Loading room", roomName);
       this.roomName = roomName;
