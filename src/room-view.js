@@ -124,6 +124,20 @@ const RoomView = Vue.extend({
       this.videoSrc = "http://www.youtube.com/embed/"+track.videoId;
     },
 
+    showAuthorName: function(activityIndex) {
+      if (activityIndex === 0)
+        return true;
+
+      var curActivity = this.activities[activityIndex],
+          prevActivity = this.activities[activityIndex - 1];
+
+      if (this.isTrack(prevActivity))
+        return true;
+
+      if (curActivity.userId !== prevActivity.userId)
+        return true;
+    },
+
     submitSomething: function() {
       var textOrURL = this.userInput;
 

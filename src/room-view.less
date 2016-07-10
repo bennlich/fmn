@@ -74,7 +74,7 @@
   }
 
   .activities {
-    padding: 20px 15px;
+    padding: 20px 115px;
     margin: 0px auto;
     @media (min-width: 640px) {
       width: 640px;
@@ -82,36 +82,49 @@
     overflow: auto;
     flex-grow: 1;
 
-    .message-text {
-      display: flex;
+    .activity {
 
-      .message-color {
-        top: 0px;
-        bottom: 0px;
-        right: 0px;
-        flex: 0 0 10px;
-        margin-right: 5px;
+      .message-text {
+        display: flex;
+        position: relative;
+
+        .message-author {
+          position: absolute;
+          transform: translateX(-100%);
+          top: 1px;
+          left: -5px;
+          font-size: 80%;
+        }
+
+        .message-color {
+          top: 0px;
+          bottom: 0px;
+          right: 0px;
+          flex: 0 0 10px;
+          margin-right: 5px;
+        }
       }
+
+      .track {
+        font-family: monospace;
+        position: relative;
+        display: flex;
+        align-items: center;
+        background: #444;
+        color: white;
+        margin: 5px 0px;
+        .button;
+        border-right: 20px solid;
+
+        .track-color {
+          position: absolute;
+          top: 0px;
+          bottom: 0px;
+          right: 0px;
+          width: 20px;
+        }
+      } 
     }
-
-    .track {
-      font-family: monospace;
-      position: relative;
-      display: flex;
-      align-items: center;
-      background: #444;
-      color: white;
-      margin: 5px 0px;
-      .button;
-
-      .track-color {
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        right: 0px;
-        width: 20px;
-      }
-    } 
   }
 }
 
