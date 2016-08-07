@@ -5,7 +5,7 @@
       <div class="participant" v-for="player in participants.data">
         <div class="player-color"
              v-bind:style="{ background: player.color }"
-             v-bind:class="{ clickable: user && player.userId === user.data.uid }"
+             v-bind:class="{ clickable: user.data && user.data.uid === player.userId }"
              v-on:click="assignNewRandomColor"></div>
         <div>{{ player.name }}</div>
       </div>
