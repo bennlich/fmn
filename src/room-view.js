@@ -174,7 +174,8 @@ const RoomView = Vue.extend({
         videoId: videoId,
         title: "",
         thumbnail: "",
-        userId: ""
+        userId: "",
+        date: Firebase.ServerValue.TIMESTAMP
       });
 
       // get additional info about the video with the youtube API
@@ -192,7 +193,8 @@ const RoomView = Vue.extend({
       activitiesRef.push({
         chat: chat,
         type: "chat",
-        userId: this.getPlayerId()
+        userId: this.getPlayerId(),
+        date: Firebase.ServerValue.TIMESTAMP
       });
     }
   }
