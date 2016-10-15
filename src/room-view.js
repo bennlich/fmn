@@ -53,11 +53,14 @@ const RoomView = Vue.extend({
       return this.activities.filter((activity) => activity.type === "track");
     },
     placeholderText: function() {
-      var prefix = "";
+      var prefix = "",
+          skippedPlayerNames = this.getSkippedPlayerNames();
+      if (skippedPlayerNames && skippedPlayerNames.length > 0)
+        prefix += "skipping over " + skippedPlayerNames.join(", ") + " / "
       if (this.userIsNextPlayer())
-        prefix = "It's your turn; ";
+        prefix += "it's your turn / ";
       else
-        prefix = "It's "+this.getNextPlayerName()+"'s turn; ";
+        prefix += "it's "+this.getNextPlayerName()+"'s turn / ";
       var postfix = "submit a message or youtube url here";
       return prefix + postfix;
     }
@@ -124,6 +127,29 @@ const RoomView = Vue.extend({
           nextPlayer = this.participants.data[nextPlayerTurnOrder];
 
       return nextPlayer;
+    },
+
+    getSkippedPlayerNames: function() {
+      if (this.activities.length === 0)
+        return null;
+
+      if (typeof this.serverTimeOffset === 'undefined')
+        return null;
+
+      var latestTrack = this.tracks[this.tracks.length - 1],
+          latestPlayerTurnOrder = this.getPlayerTurnOrder(latestTrack.userId);
+
+      var now = new Date().getTime() + this.serverTimeOffset,
+          latestTrackDate = latestTrack.date ? latestTrack.date : this.getDateFromOldTrack(latestTrack),
+          daysSinceLastPlay = (now - latestTrackDate) / 1000 / 60 / 60 / 24; // days
+
+      // skip one player every two days
+      var numPlayersToSkip = Math.floor(daysSinceLastPlay / 2),
+          indexesOfPlayersToSkip = _.range(numPlayersToSkip)
+            .map((idx) => (latestPlayerTurnOrder + 1 + idx) % this.participants.data.length);
+
+      return indexesOfPlayersToSkip
+        .map((idx) => this.participants.data[idx].name);
     },
 
     getDateFromOldTrack: function(track) {

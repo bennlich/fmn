@@ -26,6 +26,7 @@
     "less": "2.6.0",
     "randomcolor": "0.4.4",
     "firebase": "2.4.2",
-    "firebase.getAsArray": "https://github.com/bennlich/Firebase.getAsArray.git"
+    "firebase.getAsArray": "https://github.com/bennlich/Firebase.getAsArray.git",
+    "underscore": "^1.8.3"
   }
 }
