@@ -1,7 +1,8 @@
 import Vue from '../bower_components/vue/dist/vue.js';
 import template from './room-view.html!text';
 
-import { dbRef } from './db.js';
+import { firebaseKeyToTimestamp } from './bs-util.js';
+import { dbRef, rootRef } from './db.js';
 import { user } from './user.js';
 import { playerInfo } from './player-info.js';
 import { youtubeHelper } from './youtube-helper.js';
@@ -29,6 +30,11 @@ const RoomView = Vue.extend({
 
     // also load the new room on first load
     this.loadRoom(this.$route.params['roomName']);
+
+    // store the difference between client time and firebase server time
+    rootRef.child(".info/serverTimeOffset").on("value", (snap) => {
+      this.serverTimeOffset = snap.val();
+    });
   },
   mixins: [ playerInfo ],
   data: function() {
@@ -37,6 +43,7 @@ const RoomView = Vue.extend({
       roomName: null,
       roomRef: null,
       videoSrc: null,
+      serverTimeOffset: null,
       userInput: "",
       activities: []
     };
@@ -101,12 +108,27 @@ const RoomView = Vue.extend({
       if (this.activities.length === 0)
         return null;
 
+      if (typeof this.serverTimeOffset === 'undefined')
+        return null;
+
       var latestTrack = this.tracks[this.tracks.length - 1],
-          latestPlayerId = latestTrack.userId,
-          latestPlayerTurnOrder = this.getPlayerTurnOrder(latestPlayerId),
-          nextPlayerTurnOrder = (latestPlayerTurnOrder + 1) % this.participants.data.length,
+          latestPlayerTurnOrder = this.getPlayerTurnOrder(latestTrack.userId);
+
+      var now = new Date().getTime() + this.serverTimeOffset,
+          latestTrackDate = latestTrack.date ? latestTrack.date : this.getDateFromOldTrack(latestTrack),
+          daysSinceLastPlay = (now - latestTrackDate) / 1000 / 60 / 60 / 24; // days
+
+      // skip one player every two days
+      var numPlayersToSkip = Math.floor(daysSinceLastPlay / 2),
+          nextPlayerTurnOrder = (latestPlayerTurnOrder + numPlayersToSkip + 1) % this.participants.data.length,
           nextPlayer = this.participants.data[nextPlayerTurnOrder];
+
       return nextPlayer;
+    },
+
+    getDateFromOldTrack: function(track) {
+      var key = track.$id;
+      return firebaseKeyToTimestamp(key);
     },
 
     getNextPlayerName: function() {
