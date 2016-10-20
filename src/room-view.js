@@ -121,20 +121,24 @@ const RoomView = Vue.extend({
           latestTrackDate = latestTrack.date ? latestTrack.date : this.getDateFromOldTrack(latestTrack),
           daysSinceLastPlay = (now - latestTrackDate) / 1000 / 60 / 60 / 24; // days
 
-      // skip one player every two days
-      var numPlayersToSkip = Math.floor(daysSinceLastPlay / 2),
+      var numPlayersToSkip = this.getNumPlayersToSkip(daysSinceLastPlay),
           nextPlayerTurnOrder = (latestPlayerTurnOrder + numPlayersToSkip + 1) % this.participants.data.length,
           nextPlayer = this.participants.data[nextPlayerTurnOrder];
 
       return nextPlayer;
     },
 
+    getNumPlayersToSkip: function(daysSinceLastPlay) {
+      // skip one player every two days; don't skip more players than are participants
+      return Math.min(Math.floor(daysSinceLastPlay / 2), this.participants.data.length - 1);
+    },
+
     getSkippedPlayerNames: function() {
       if (this.activities.length === 0)
-        return null;
+        return [];
 
       if (typeof this.serverTimeOffset === 'undefined')
-        return null;
+        return [];
 
       var latestTrack = this.tracks[this.tracks.length - 1],
           latestPlayerTurnOrder = this.getPlayerTurnOrder(latestTrack.userId);
@@ -144,7 +148,7 @@ const RoomView = Vue.extend({
           daysSinceLastPlay = (now - latestTrackDate) / 1000 / 60 / 60 / 24; // days
 
       // skip one player every two days
-      var numPlayersToSkip = Math.floor(daysSinceLastPlay / 2),
+      var numPlayersToSkip = this.getNumPlayersToSkip(daysSinceLastPlay),
           indexesOfPlayersToSkip = _.range(numPlayersToSkip)
             .map((idx) => (latestPlayerTurnOrder + 1 + idx) % this.participants.data.length);
 
